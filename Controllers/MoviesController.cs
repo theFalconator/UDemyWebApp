@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using UDemyWebApplication.Models;
+using UDemyWebApplication.ViewModels;
 
 namespace UDemyWebApplication.Controllers
 {
@@ -10,8 +11,22 @@ namespace UDemyWebApplication.Controllers
         // GET
         public ActionResult Random()
         {
-            var result = new Movie(1, "Shrek");
-            return View(result);
+            var movie = new Movie(1, "Shrek");
+            var customers = new List<Customer>
+            {
+                new Customer() {Name = "Customer 1"},
+                new Customer() {Name = "Customer 2"}
+            };
+
+            var viewModel = new RandomMovieViewModel
+            {
+                Movie = movie,
+                Customers = customers
+            };
+            // Do not use ViewData or ViewBag to pass data.
+//            ViewData["Movie"] = result;
+//            ViewBag.Movie = result;
+            return View(viewModel);
         }
 
         public ActionResult Edit(int id)
